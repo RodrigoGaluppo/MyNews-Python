@@ -1,0 +1,12 @@
+Flask
+Flask-RESTful
+Flask-JWT-Extended
+requests
+gunicorn
+BeautifulSoup
+numpy
+urllib
+html5lib
+newspaper
+nltk
+psycopg2-binary
