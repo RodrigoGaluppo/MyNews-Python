@@ -5,7 +5,6 @@ requests
 gunicorn
 beautifulsoup4
 numpy
-urllib
 html5lib
 newspaper
 nltk
