@@ -6,6 +6,6 @@ gunicorn
 beautifulsoup4
 numpy
 html5lib
-newspaper
+newspaper3k
 nltk
 psycopg2-binary
