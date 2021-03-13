@@ -3,7 +3,7 @@ Flask-RESTful
 Flask-JWT-Extended
 requests
 gunicorn
-BeautifulSoup
+beautifulsoup4
 numpy
 urllib
 html5lib
