@@ -15,7 +15,6 @@ class YahooScraper(Resource):
         if data.get("lang"):
             default_language =  data.get("lang")
 
-        
         newsScraper = Scraper(lang=default_language,query=data.get("query"))
         news = newsScraper.Start()
         return {"news": news},200
