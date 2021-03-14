@@ -8,7 +8,8 @@ class Scraper():
 
         if lang == "en-US":
             self.root = f"https://news.search.yahoo.com/search?p={query}&b="
-        elif lang == "pt-BR" or lang == "es-ES" or lang == "fr-FR" or lang == "en-UK":
+            
+        elif lang == "pt-BR" or lang == "es-ES" or lang == "en-UK":
             location = lang.split("-")[1].lower()
             self.root = f"https://{location}.news.search.yahoo.com/search?p={query}&b="
         
