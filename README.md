@@ -1,3 +1,3 @@
 # MyNews-Python
- A sews scraper api made with python
+ A news scraper api made with python
 
