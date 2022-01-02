@@ -7,9 +7,9 @@ import requests
 
 class ArticleScraper():
 
-    
+
     def __init__(self,link):
-        URL = self.ScrapeTrueLink(link)
+        URL = link
         print(URL)
         self.Setup(link=URL)
 

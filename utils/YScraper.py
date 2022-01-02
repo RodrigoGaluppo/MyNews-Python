@@ -2,35 +2,26 @@ from urllib.request import Request, urlopen
 from bs4 import BeautifulSoup
 import requests
 import numpy as np
+from slugify import slugify
 
 class Scraper():
     def __init__(self,lang,query) :
 
-        if lang == "en-US":
-            self.root = f"https://news.search.yahoo.com/search?p={query}&b="
-            
-        elif lang == "pt-BR" or lang == "es-ES" or lang == "en-UK":
+        if lang == "pt-BR" or lang == "es-ES" or lang == "en-UK":
             location = lang.split("-")[1].lower()
             self.root = f"https://{location}.news.search.yahoo.com/search?p={query}&b="
-        
-        elif lang == "pt-PT":
-            self.root = f"https://br.news.search.yahoo.com/search?p={query}&b="
-            
+
         else:
             self.root = f"https://news.search.yahoo.com/search?p={query}&b="
+
+        if query == "":
+            self.root = f"https://news.search.yahoo.com/search?p=news&b="
 
     def Start(self):
         news = np.array([])
         for c in range(0,2):
-            
-            if c == 0:
-                link = self.root + "1"
 
-            elif c == 1:
-                link = self.root + "11"
-
-            elif c == 2:
-                link = self.root + "21"
+            link = self.root + f"{1 + c * 10 }"
 
             response = requests.get(link,headers={
                 'accept': '*/*',
@@ -44,18 +35,20 @@ class Scraper():
                 soup = BeautifulSoup(response.text,"html5lib")
                 #print(soup)
 
-                listItems = soup.find_all("div","NewsArticle") 
-                
+                listItems = soup.find_all("div","NewsArticle")
+
                 for item in listItems:
                     try:
                         title = item.find("h4", "s-title").text
                         source = item.find("span", "s-source").text
                         timeStamp = item.find("span","s-time").text
-                        link = item.find("a").get("href")
-
+                        link = item.find("a").get("href").split("https://")[1].split("RU=")[1]
+                        link="URL="+link
+                        description = item.find("p","s-desc").text
                         imgSrc = item.find("img","s-img").get("data-src")
+                        slug = slugify(title)
 
-                        news = np.append(news,{"link":link,"title":title,"source":source,"timeStamp":timeStamp,"imgSrc":imgSrc})
+                        news = np.append(news,{"link":link,"title":title,"description":description,"source":source,"timeStamp":timeStamp,"slug":slug,"imgSrc":imgSrc})
                     except:pass
 
         return news.tolist()

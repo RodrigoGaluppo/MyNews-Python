@@ -10,3 +10,4 @@ newspaper3k
 nltk
 psycopg2-binary
 flask_cors
+python-slugify
