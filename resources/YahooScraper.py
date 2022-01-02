@@ -22,6 +22,11 @@ class YahooScraper(Resource):
             "en-UK"]):
                 default_language =  data.get("lang")
 
+            if(data.get("query") and data.get("query") != ""):
+                default_query = data.get("query")
+            else:
+                default_language =  "en-US"
+
         newsScraper = Scraper(lang=default_language,query=default_query)
         try:
             news = newsScraper.Start()
