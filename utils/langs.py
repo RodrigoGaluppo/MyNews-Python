@@ -7,6 +7,7 @@ langsList = [
 "es-MX",
 "ru-RU",
 "it-IT",
+"fr-FR",
 "de-DE",
 "de-CH",
 "nl-NL",
