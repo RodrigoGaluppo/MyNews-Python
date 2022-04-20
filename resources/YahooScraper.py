@@ -1,5 +1,6 @@
 from utils.YScraper import Scraper
 from flask_restful import Resource,reqparse
+from utils.langs import langsList
 
 class YahooScraper(Resource):
 
@@ -16,13 +17,10 @@ class YahooScraper(Resource):
         default_query = "news"
 
         if data.get("lang"):
-            if(data.get("lang") in ["pt-BR",
-            "en-US",
-            "es-ES",
-            "en-UK"]):
+            if(data.get("lang") in langsList):
                 default_language =  data.get("lang")
 
-            if(data.get("query") and data.get("query") != ""):
+            if(data.get("query") != "" and data.get("query") != ""):
                 default_query = data.get("query")
             else:
                 default_language =  "en-US"

@@ -33,4 +33,4 @@ cors = CORS(app,resources={
 
 if __name__ == "__main__":
     print("running")
-    app.run()
+    app.run(debug=True)

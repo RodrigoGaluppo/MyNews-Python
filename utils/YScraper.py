@@ -7,12 +7,13 @@ from slugify import slugify
 class Scraper():
     def __init__(self,lang,query) :
 
-        if lang == "pt-BR" or lang == "es-ES" or lang == "en-UK":
-            location = lang.split("-")[1].lower()
-            self.root = f"https://{location}.news.search.yahoo.com/search?p={query}&b="
-
-        else:
+        if lang == "en-US":
             self.root = f"https://news.search.yahoo.com/search?p={query}&b="
+        else:
+            location = lang.split("-")[1].lower()
+            print(location)
+            self.root = f"https://{location}.news.search.yahoo.com/search?p={query}&b="
+            print(self.root)
 
         if query == "":
             self.root = f"https://news.search.yahoo.com/search?p=news&b="
@@ -37,18 +38,34 @@ class Scraper():
 
                 listItems = soup.find_all("div","NewsArticle")
 
+
+
                 for item in listItems:
+
                     try:
                         title = item.find("h4", "s-title").text
                         source = item.find("span", "s-source").text
                         timeStamp = item.find("span","s-time").text
                         link = item.find("a").get("href").split("https://")[1].split("RU=")[1]
                         link="URL="+link
-                        description = item.find("p","s-desc").text
-                        imgSrc = item.find("img","s-img").get("data-src")
                         slug = slugify(title)
+                    except:
+                        pass
 
-                        news = np.append(news,{"link":link,"title":title,"description":description,"source":source,"timeStamp":timeStamp,"slug":slug,"imgSrc":imgSrc})
-                    except:pass
+                    try:
+                        description = item.find("p","s-desc").text
+                    except:
+                        description = ""
+
+                    try:
+                        imgSrc = item.find("img","s-img").get("data-src")
+
+                        if(imgSrc == None):
+                            imgSrc = "https://s.yimg.com/rz/stage/p/yahoo_news_en-US_h_p_newsv2.png"
+                    except:
+                        imgSrc = "https://s.yimg.com/rz/stage/p/yahoo_news_en-US_h_p_newsv2.png"
+
+                    news = np.append(news,{"link":link,"title":title,"description":description,"source":source,"timeStamp":timeStamp,"slug":slug,"imgSrc":imgSrc})
+
 
         return news.tolist()
