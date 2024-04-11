@@ -32,4 +32,6 @@ The News Indexer project is structured into two layers:
 
 The News Indexer combines the power of frontend technologies like Next.js and React.js with backend capabilities in Python to deliver a versatile news indexing platform. By leveraging web scraping and NLP algorithms, the application provides users with access to news articles in multiple languages, enhancing their browsing experience.
 
+## DEMO
+https://youtube.com/shorts/WVz-mwS7_rs
 
